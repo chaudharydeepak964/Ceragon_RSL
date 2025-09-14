@@ -157,12 +157,12 @@ print("SFTP Done")
 ssh3=paramiko.SSHClient()
 ssh3.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 try:
-    ssh3.connect(hostname='10.115.1.57',username='Cobra',password='Cobra@123',port=22)
+    ssh3.connect(hostname='1.1.1.1',username='admin',password='admin',port=22)
 except:
     pass
 
 try:
-    ssh3.connect(hostname='10.19.62.229',username='Cobra',password='Cobra@123',port=22)
+    ssh3.connect(hostname='2.2.2.2',username='admin',password='admin',port=22)
 except:
     pass
 sftp_client1=ssh3.open_sftp()
@@ -174,24 +174,9 @@ sftp_client1.chdir('/opt/MyLog/TX/Master_data')
 sftp_client1.get('Ceragon_planning_Data.xlsx' ,  r'C:\Users\COR1736664\Desktop\Deepak\ALL CODE\Cera RSL\RAW\Ceragon_planning_Data.xlsx')
 
 
-
-#####################################################################################################################################################################
-
-
-                               ## ********************************************************* DAY-1 *************************************************** ##
-
-#####################################################################################################################################################################
-
 print("Day1 file read")
 
-try:
-    ASM = pd.read_csv(r'C:\Users\COR1736664\Desktop\Deepak\ALL CODE\Cera RSL\RAW\DAY1\A_Full_Link_Report_'+da7+'.csv',skiprows=5,encoding='latin1')
-except:
-    pass
-try:
-    BIH = pd.read_csv(r'C:\Users\COR1736664\Desktop\Deepak\ALL CODE\Cera RSL\RAW\DAY1\B_Full_Link_Report_'+da7+'.csv',skiprows=5)
-except:
-    pass
+
 try:
     KAR = pd.read_csv(r'C:\Users\COR1736664\Desktop\Deepak\ALL CODE\Cera RSL\RAW\DAY1\K_Full_Link_Report_'+da7+'.csv',skiprows=5)
 except:
@@ -204,61 +189,31 @@ try:
     ROB = pd.read_csv(r'C:\Users\COR1736664\Desktop\Deepak\ALL CODE\Cera RSL\RAW\DAY1\R_Full_Link_Report_'+da7+'.csv',skiprows=5,encoding='latin1')
 except:
     pass
-try:
-    ODI = pd.read_csv(r'C:\Users\COR1736664\Desktop\Deepak\ALL CODE\Cera RSL\RAW\DAY1\O_Full_Link_Report_'+da7+'.csv',skiprows=5)
-except:
-    pass
+
 
 print("Reading Done")
 
-
-
-
-#####################################################################################################################################################################
-
-
-##RENAME RSL/IP COLUMN NAME
 
 try:
     UPE.rename(columns={'Site Z Name':'Site B Name','Site Z Physical Port':'Site B Physical Port','Site Z IP':'Site B IP','Site A Tx Power (Current) [dBm]':'Site A Tx Power Current','Site Z Tx Power (Current) [dBm]':'Site B Tx Power Current','Site A Rx Level (Current) [dBm]':'Site A Rx Level Current','Site Z Rx Level (Current) [dBm]':'Site B Rx Level Current'},inplace=True)
 except:
     pass
-try:
-    ODI.rename(columns={'Site A Id':'Site A IP','Site B Id':'Site B IP','Site Z IP':'Site B IP','Site A Tx Power (Current) [dBm]':'Site A Tx Power Current','Site B Tx Power (Current) [dBm]':'Site B Tx Power Current','Site A Rx Level (Current) [dBm]':'Site A Rx Level Current','Site B Rx Level (Current) [dBm]':'Site B Rx Level Current'},inplace=True)
-except:
-    pass
-try:
-    ASM.rename(columns={'Site A Tx Power (Current) [dBm]':'Site A Tx Power Current','Site B Tx Power (Current) [dBm]':'Site B Tx Power Current','Site A Rx Level (Current) [dBm]':'Site A Rx Level Current','Site B Rx Level (Current) [dBm]':'Site B Rx Level Current'},inplace=True)
-except:
-    pass
-try:
-    BIH.rename(columns={'Site A Tx Power (Current) [dBm]':'Site A Tx Power Current','Site B Tx Power (Current) [dBm]':'Site B Tx Power Current','Site A Rx Level (Current) [dBm]':'Site A Rx Level Current','Site B Rx Level (Current) [dBm]':'Site B Rx Level Current'},inplace=True)
-except:
-    pass
+
+
 try:
     KAR.rename(columns={'Site Z Name':'Site B Name','Site A Tx Power (Current) [dBm]':'Site A Tx Power Current','Site Z Tx Power (Current) [dBm]':'Site B Tx Power Current','Site A Rx Level (Current) [dBm]':'Site A Rx Level Current','Site Z Rx Level (Current) [dBm]':'Site B Rx Level Current'},inplace=True)
 except:
     pass
+
 try:
     ROB.rename(columns={'Site Z Name':'Site B Name','Site A Tx Power (Current) [dBm]':'Site A Tx Power Current','Site Z Tx Power (Current) [dBm]':'Site B Tx Power Current','Site A Rx Level (Current) [dBm]':'Site A Rx Level Current','Site Z Rx Level (Current) [dBm]':'Site B Rx Level Current'},inplace=True)
 except:
     pass
+
 print("Day1 column Renamed")
 
 ## SELECTED ONLY USED COILUMNS
 
-try:
-    ASM=ASM[['Site A Name','Site B Name','Site A Tx Power Current','Site B Tx Power Current','Site A Rx Level Current','Site B Rx Level Current']]
-except:
-    pass
-try:
-    BIH=BIH[['Site A Name','Site B Name','Site A Tx Power Current','Site B Tx Power Current','Site A Rx Level Current','Site B Rx Level Current']]
-except:
-    pass
-try:
-    ODI=ODI[['Site A Name','Site B Name','Site A Tx Power Current','Site B Tx Power Current','Site A Rx Level Current','Site B Rx Level Current']]
-except:
-    pass
 try:
     UPE=UPE[['Site A Name','Site B Name','Site A Tx Power Current','Site B Tx Power Current','Site A Rx Level Current','Site B Rx Level Current']]
 except:
@@ -275,18 +230,7 @@ except:
 
 ## CREATE NEW SERVER COLUMN
 
-try:
-    ASM['Server']='ASM_I'
-except:
-    pass
-try:
-    BIH['Server']='BIH_I'
-except:
-    pass
-try:
-    ODI['Server']='ODI'
-except:
-    pass
+
 try:
     UPE['Server']='UPE'
 except:
@@ -300,9 +244,7 @@ try:
 except:
     pass
 
-## CONCAT
-
-#DAY1=pd.concat([ASM,BIH,ODI,UPE,KAR,ROB])
+#DAY1=pd.concat([UPE,KAR,ROB])
 
 dataframes = []
 for name in ['KAR', 'ROB', 'UPE']:
@@ -433,8 +375,6 @@ df2.rename(columns={'uniq link':'B-A'},inplace=True)
 #new_df1 = df2[df2['Site B Rx Level Current'].isna()]  #check #NA count
 
 
-#df2.to_excel(r'D:\DEEPAK-Office\Cera RSL\Cera RSL\RSL_Report_Ceragon1.xlsx')
-
 final=pd.concat([df,df2])
 
 df = final.sort_values(by='A-B', ascending=True)
@@ -490,7 +430,6 @@ df.loc[(df['B-A'].str.contains('IDJK',na=False)),'Circle']='JNK'
 df.loc[(df['B-A'].str.contains('INJK',na=False)),'Circle']='JNK'
 df.loc[(df['B-A'].str.contains('SRR2',na=False)),'Circle']='JNK'
 
-#df.to_excel(r'D:\DEEPAK-Office\Cera RSL\Cera RSL\RSL_Report_Ceragon.xlsx')
 
 # Calculation
 
@@ -653,12 +592,7 @@ print("done")
 
 
 
-
-
-
-
-
-                                                            # ** Reports Uploading **   
+                                                    # ** Reports Uploading **   
 
 print(" ** Reports Uploading start on cobra and BI Portal -->> /home/snenrc/VIL_IDEA_REPORTS/TX_REPORT ** ")
 
@@ -668,20 +602,21 @@ print(" ** CERA RSL Uploading Start ** ")
 ssh3=paramiko.SSHClient()
 ssh3.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 try:
-    ssh3.connect(hostname='10.115.1.57',username='Cobra',password='Cobra@123',port=22)
+    ssh3.connect(hostname='10.10.10.10',username='admin',password='admin',port=22)
 except:
     pass
 
 try:
-    ssh3.connect(hostname='10.19.62.229',username='Cobra',password='Cobra@123',port=22)
+    ssh3.connect(hostname='11.11.11.11',username='admin',password='admin',port=22)
 except:
     pass
+
 sftp_client1=ssh3.open_sftp()
 
 
 
 try:
-    sftp_client1.chdir('/opt/MyLog/TX/RSL_Dev_Reports_Daily')
+    sftp_client1.chdir('/opt/TX/RSL_Dev_Reports_Daily')
     sftp_client1.put(r'C:\Users\COR1736664\Desktop\Deepak\ALL CODE\Cera RSL\Output\TXN_VIL_PAN_INDIA_CERA_RSL_DEVIATION_'+d7+'_DAILY.xlsx','TXN_VIL_PAN_INDIA_CERA_RSL_DEVIATION_'+d7+'_DAILY.xlsx')   
 except:
     pass
@@ -696,7 +631,7 @@ print(" ** CERA RSL Uploading Start ** ")
 
 ssh0=paramiko.SSHClient()
 ssh0.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-ssh0.connect(hostname='10.19.33.41',username='snenrc',password='Qwer!234',port=22)
+ssh0.connect(hostname='11.11.11.11',username='root',password='root',port=22)
 sftp_client0=ssh0.open_sftp()
 
 
