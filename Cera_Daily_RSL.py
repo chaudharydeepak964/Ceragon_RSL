@@ -602,12 +602,12 @@ print(" ** CERA RSL Uploading Start ** ")
 ssh3=paramiko.SSHClient()
 ssh3.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 try:
-    ssh3.connect(hostname='10.10.10.10',username='admin',password='admin',port=22)
+    ssh3.connect(hostname='10.10.10.10',username='root',password='root',port=22)
 except:
     pass
 
 try:
-    ssh3.connect(hostname='11.11.11.11',username='admin',password='admin',port=22)
+    ssh3.connect(hostname='11.11.11.11',username='root',password='root',port=22)
 except:
     pass
 
